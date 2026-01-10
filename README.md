@@ -6,24 +6,13 @@
 
 # Руководство по установке
 
-## Шаг 1: Обновление списка пакетов
-
-Обновите список пакетов, чтобы у вас были последние доступные версии.
-
-```bash
-opkg update
-```
-
-
 ## Шаг 2: Установка необходимых пакетов
 
 Установите необходимый модуль ядра для nftables.
 
 ```bash
-opkg install kmod-nft-tproxy
+apk add kmod-nft-tproxy
 ```
-
-Для iptables (если у вас OpenWrt версии < 22.03.x) – `iptables-mod-tproxy`.
 
 ## Шаг 3: Загрузка и установка пакета `luci-app-ssclash`
 
@@ -58,19 +47,19 @@ cd /opt/clash/bin
 Для архитектуры **amd64**:
 
 ```bash
-curl -L https://github.com/MetaCubeX/mihomo/releases/download/v1.19.14/mihomo-linux-amd64-compatible-v1.19.14.gz -o clash.gz
+curl -L https://github.com/MetaCubeX/mihomo/releases/download/v1.19.18/mihomo-linux-amd64-compatible-v1.19.14.gz -o clash.gz
 ```
 
 Для архитектуры **arm64**:
 
 ```bash
-curl -L https://github.com/MetaCubeX/mihomo/releases/download/v1.19.14/mihomo-linux-arm64-v1.19.14.gz -o clash.gz
+curl -L https://github.com/MetaCubeX/mihomo/releases/download/v1.19.18/mihomo-linux-arm64-v1.19.14.gz -o clash.gz
 ```
 
 Для архитектуры **mipsel\_24kc**:
 
 ```bash
-curl -L https://github.com/MetaCubeX/mihomo/releases/download/v1.19.14/mihomo-linux-mipsle-softfloat-v1.19.14.gz -o clash.gz
+curl -L https://github.com/MetaCubeX/mihomo/releases/download/v1.19.18/mihomo-linux-mipsle-softfloat-v1.19.14.gz -o clash.gz
 ```
 
 Нужна другая архитектура? Посетите [страницу релизов MetaCubeX](https://github.com/MetaCubeX/mihomo/releases) и выберите ту, которая соответствует вашему устройству.
