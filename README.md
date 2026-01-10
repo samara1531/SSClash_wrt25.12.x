@@ -1,35 +1,33 @@
-📖 Read this in other languages:
-- [Русский](README.ru.md)
-
 <p align="center">
  <img src=".github/assets/images/logos/SSClash.png" width="200">
 </p>
 
-<h3 align="center">Here's the step-by-step process for installing and configuring SSClash on your OpenWrt router</h3>
+<h3 align="center">Пошаговая инструкция по установке и настройке SSClash на вашем роутере с OpenWrt</h3>
 
-# Setup Guide
+# Руководство по установке
 
-## Step 1: Update Package List
+## Шаг 1: Обновление списка пакетов
 
-Update the package list to ensure you have the latest available versions.
+Обновите список пакетов, чтобы у вас были последние доступные версии.
 
 ```bash
 opkg update
 ```
 
-## Step 2: Install Required Packages
 
-Install the necessary kernel module for nftables.
+## Шаг 2: Установка необходимых пакетов
+
+Установите необходимый модуль ядра для nftables.
 
 ```bash
 opkg install kmod-nft-tproxy
 ```
 
-For iptables (if you have OpenWrt version < 22.03.x) – `iptables-mod-tproxy`.
+Для iptables (если у вас OpenWrt версии < 22.03.x) – `iptables-mod-tproxy`.
 
-## Step 3: Download and Install `luci-app-ssclash` Package
+## Шаг 3: Загрузка и установка пакета `luci-app-ssclash`
 
-Download the SSClash package and install it.
+Загрузите пакет SSClash и установите его.
 
 ```bash
 curl -L https://github.com/zerolabnet/ssclash/releases/download/v3.2.0/luci-app-ssclash_3.2.0-r1_all.ipk -o /tmp/luci-app-ssclash_3.2.0-r1_all.ipk
@@ -37,198 +35,201 @@ opkg install /tmp/luci-app-ssclash_3.2.0-r1_all.ipk
 rm /tmp/*.ipk
 ```
 
-## Step 4: Automatic Mihomo Kernel Management
 
-Go to **Settings** → **Mihomo Kernel Management** and click **Download Latest Kernel**. The system will:
+## Шаг 4: Автоматическое управление ядром Mihomo
 
-- Automatically detect your router's architecture
-- Download the latest compatible Mihomo kernel
-- Install and configure it properly
-- Show kernel status and version information
+Перейдите в **Настройки** → **Управление ядром Mihomo** и нажмите **Загрузить последнее ядро**. Система:
 
-**Important:** Restart the Clash service after kernel installation.
+* Автоматически определит архитектуру вашего роутера
+* Загрузит последнее совместимое ядро Mihomo
+* Правильно установит и настроит его
+* Покажет статус и версию ядра
 
-### Manual Kernel Installation (Optional)
+**Важно:** Перезапустите службу Clash после установки ядра.
 
-If you prefer manual installation, navigate to the `bin` directory and download the Clash.Meta Kernel:
+### Ручная установка ядра (необязательно)
+
+Если вы предпочитаете ручную установку, перейдите в каталог `bin` и загрузите ядро Clash.Meta:
 
 ```bash
 cd /opt/clash/bin
 ```
 
-For **amd64** architecture:
+Для архитектуры **amd64**:
 
 ```bash
 curl -L https://github.com/MetaCubeX/mihomo/releases/download/v1.19.14/mihomo-linux-amd64-compatible-v1.19.14.gz -o clash.gz
 ```
 
-For **arm64** architecture:
+Для архитектуры **arm64**:
 
 ```bash
 curl -L https://github.com/MetaCubeX/mihomo/releases/download/v1.19.14/mihomo-linux-arm64-v1.19.14.gz -o clash.gz
 ```
 
-For **mipsel_24kc** architecture:
+Для архитектуры **mipsel\_24kc**:
 
 ```bash
 curl -L https://github.com/MetaCubeX/mihomo/releases/download/v1.19.14/mihomo-linux-mipsle-softfloat-v1.19.14.gz -o clash.gz
 ```
 
-Need a different architecture? Visit the [MetaCubeX Release Page](https://github.com/MetaCubeX/mihomo/releases) and choose the one that matches your device.
+Нужна другая архитектура? Посетите [страницу релизов MetaCubeX](https://github.com/MetaCubeX/mihomo/releases) и выберите ту, которая соответствует вашему устройству.
 
-Decompress and make executable:
+Распакуйте и сделайте исполняемым:
 
 ```bash
 gunzip clash.gz
 chmod +x clash
 ```
 
-## Step 5: Configure Interface Processing Mode
 
-SSClash offers two interface processing modes:
+## Шаг 5: Настройка режима обработки интерфейсов
 
-### Exclude Mode (Universal approach) - **Recommended for most users**
+SSClash предлагает два режима обработки интерфейсов:
 
-- **Default mode** that processes traffic from ALL interfaces except selected ones
-- Automatically detects and excludes WAN interface
-- Simple to configure - just select interfaces to bypass proxy
-- Best for typical home router setups
+### Режим исключения (Универсальный подход) - **Рекомендуется для большинства пользователей**
 
-### Explicit Mode (Precise control) - **For advanced users**
+* **Режим по умолчанию**, который обрабатывает трафик со ВСЕХ интерфейсов, кроме выбранных
+* Автоматически определяет и исключает WAN-интерфейс
+* Прост в настройке - просто выберите интерфейсы для обхода прокси
+* Лучше всего подходит для типичных домашних роутеров
 
-- Processes traffic ONLY from selected interfaces
-- More secure but requires manual configuration
-- Automatically detects LAN bridge when enabled
-- Ideal for complex network setups requiring precise control
 
-### Additional Settings:
+### Явный режим (Точный контроль) - **Для продвинутых пользователей**
 
-- **Block QUIC traffic**: Blocks UDP port 443 to improve proxy effectiveness for services like YouTube
+* Обрабатывает трафик ТОЛЬКО с выбранных интерфейсов
+* Более безопасен, но требует ручной настройки
+* Автоматически определяет LAN-мост при включении
+* Идеально подходит для сложных сетевых конфигураций, требующих точного контроля
+
+
+### Дополнительные настройки:
+
+* **Блокировать QUIC-трафик**: Блокирует UDP-порт 443 для повышения эффективности прокси для таких сервисов, как YouTube
 
 <p align="center">
  <img src=".github/assets/images/screenshots/scr-01.png" width="100%">
 </p>
 
-## Step 6: Clash Configuration Management
+## Шаг 6: Управление конфигурацией Clash
 
-Edit your Clash configuration with the built-in editor featuring:
+Редактируйте свою конфигурацию Clash с помощью встроенного редактора, который включает:
 
-- **Syntax highlighting** for YAML files
-- **Live service control** (Start/Stop/Restart)
-- **Service status indicator**
-- **Save & Apply** functionality with automatic service reload
+* **Подсветку синтаксиса** для YAML-файлов
+* **Управление службой в реальном времени** (Запуск/Остановка/Перезапуск)
+* **Индикатор состояния службы**
+* Функциональность **Сохранить и применить** с автоматической перезагрузкой службы
 
 <p align="center">
  <img src=".github/assets/images/screenshots/scr-02.png" width="100%">
 </p>
 
-## Step 7: Local Rulesets Management
+## Шаг 7: Управление локальными наборами правил
 
-Create and manage local rule files for use with `rule-providers`:
+Создавайте и управляйте локальными файлами правил для использования с `rule-providers`:
 
-- **Create custom rule lists** with validation
-- **Edit existing rulesets** with syntax highlighting
-- **Organized file management** with collapsible sections
-- **Usage**: Reference in config as `type: file, format: text, path: ./lst/your_list.txt`
+* **Создание пользовательских списков правил** с проверкой
+* **Редактирование существующих наборов правил** с подсветкой синтаксиса
+* **Организованное управление файлами** со сворачиваемыми разделами
+* **Использование**: Ссылка в конфигурации как `type: file, format: text, path: ./lst/your_list.txt`
 
 <p align="center">
  <img src=".github/assets/images/screenshots/scr-03.png" width="100%">
 </p>
 
-## Step 8: Real-time Log Monitoring
+## Шаг 8: Мониторинг логов в реальном времени
 
-Monitor Clash activity with the integrated log viewer:
+Отслеживайте активность Clash с помощью встроенного просмотрщика логов:
 
-- **Real-time log streaming** with automatic updates
-- **Filtered display** showing only Clash-related entries
-- **Color-coded log levels** and daemon identification
-- **Auto-scroll** to latest entries
+* **Потоковая передача логов в реальном времени** с автоматическим обновлением
+* **Фильтрованное отображение**, показывающее только записи, связанные с Clash
+* **Цветовая кодировка уровней логов** и идентификация демона
+* **Автоматическая прокрутка** к последним записям
 
 <p align="center">
  <img src=".github/assets/images/screenshots/scr-04.png" width="100%">
 </p>
 
-## Step 9: Dashboard Access
+## Шаг 9: Доступ к панели управления
 
-Access the Clash dashboard directly from the LuCI interface with automatic configuration detection.
+Получите доступ к панели управления Clash прямо из интерфейса LuCI с автоматическим определением конфигурации.
 
 <p align="center">
  <img src=".github/assets/images/screenshots/scr-05.png" width="100%">
 </p>
 
-# Remove Clash
+# Удаление Clash
 
-To remove Clash completely:
+Чтобы полностью удалить Clash:
 
 ```bash
 opkg remove luci-app-ssclash kmod-nft-tproxy
 rm -rf /opt/clash
 ```
 
----
 
-# Extra Info (optional):
+# Дополнительная информация (необязательно):
 
-## 1. To automatically update Clash rules when the Internet interface comes up:
+## 1. Чтобы автоматически обновлять правила Clash при включении интернет-интерфейса:
 
-Create the Hotplug Script:
+Создайте скрипт Hotplug:
 
-1. Create the script in `/etc/hotplug.d/iface/40-clash_rules`:
+1. Создайте скрипт в `/etc/hotplug.d/iface/40-clash_rules`:
 ```bash
 vi /etc/hotplug.d/iface/40-clash_rules
 ```
 
-2. Add the following content:
+2. Добавьте следующее содержимое:
 ```sh
 #!/bin/sh
 
-# Add delay
+# Добавить задержку
 sleep 10
 
-# API IP address and port
+# IP-адрес и порт API
 api_base_url="http://192.168.1.1:9090"
 
-# API URL
+# URL API
 base_url="$api_base_url/providers/rules"
 
-# Get JSON response with provider names
+# Получить JSON-ответ с именами провайдеров
 response=$(curl -s "$base_url")
 
-# Extract provider names using standard utilities
+# Извлечь имена провайдеров с помощью стандартных утилит
 providers=$(echo "$response" | grep -o '"name":"[^"]*"' | sed 's/"name":"\([^"]*\)"/\1/')
 
-# Check if data retrieval was successful
+# Проверить, успешно ли были получены данные
 if [ -z "$providers" ]; then
-  echo "Failed to retrieve providers or no providers found."
+  echo "Не удалось получить данные или провайдеры не найдены."
   exit 1
 fi
 
-# Loop through each provider name and send PUT request to update
+# Пройтись по каждому имени провайдера и отправить PUT-запрос для обновления
 for provider in $providers; do
-  echo "Updating provider: $provider"
+  echo "Обновление провайдера: $provider"
   curl -X PUT "$base_url/$provider"
 
-  # Check success and output the result
+  # Проверить успешность и вывести результат
   if [ $? -eq 0 ]; then
-    echo "Successfully updated $provider"
+    echo "Успешно обновлен $provider"
   else
-    echo "Failed to update $provider"
+    echo "Не удалось обновить $provider"
   fi
 done
 
-# Service restart
+# Перезапуск службы
 /etc/init.d/clash reload
 ```
 
-3. Save and exit the editor.
+3. Сохраните и выйдите из редактора.
 
-This script automatically updates rule providers whenever the Internet interface comes up, ensuring rules are refreshed after router reboots.
+Этот скрипт автоматически обновляет провайдеров правил всякий раз, когда включается интернет-интерфейс, обеспечивая обновление правил после перезагрузки роутера.
 
-## 2. If you use `proxy-providers`, to automatically update the proxy server IP addresses (which are excluded from the mangle chain) when subscriptions change:
+## 2. Если вы используете `proxy-providers`, то для автоматического обновления IP-адресов прокси-серверов (исключаемых из цепочки mangle) при изменении подписок:
 
-Create a cron job:
+Создайте задачу в cron:
 
 ```sh
-# Check and update every 30 minutes
+# Проверка и обновление каждые 30 минут
 */30 * * * * /opt/clash/bin/clash-rules update >/dev/null 2>&1
 ```
