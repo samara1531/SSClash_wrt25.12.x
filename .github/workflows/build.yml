@@ -1,8 +1,5 @@
 name: build
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
       release-tag:
@@ -44,13 +41,16 @@ jobs:
       - name: Build Packages
         run: |
           cd "$SDK_HOME"
-          ./scripts/feeds update > /dev/null 2>&1
-          ./scripts/feeds install -a > /dev/null 2>&1
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a
           ln -s "${{ github.workspace }}" "package/$PACKAGE_NAME"
-          make defconfig > /dev/null 2>&1
+          make defconfig
           make package/${PACKAGE_NAME}/compile V=s
-          find "$SDK_HOME/bin" -type f -name "${PACKAGE_NAME}_*.apk" \
-           -exec cp -f {} "${{ github.workspace }}" \;
+
+          echo "APK files:"
+          find "$SDK_HOME/bin/packages" -type f -name "*.apk"
+
+          cp -v "$SDK_HOME"/bin/packages/*/*/*.apk "${{ github.workspace }}"
       - name: Generate Release Notes
         run: |
           echo "## Release ${{ github.event.inputs.release-tag }}" > release_notes.md
