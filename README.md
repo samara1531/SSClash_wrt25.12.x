@@ -153,7 +153,7 @@ SSClash предлагает два режима обработки интерф
 Чтобы полностью удалить Clash:
 
 ```bash
-opkg remove luci-app-ssclash kmod-nft-tproxy
+apk del luci-app-ssclash kmod-nft-tproxy
 rm -rf /opt/clash
 ```
 
