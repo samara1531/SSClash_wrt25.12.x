@@ -19,8 +19,8 @@ apk add kmod-nft-tproxy curl gunzip
 Загрузите пакет SSClash и установите его.
 
 ```bash
-curl -L https://github.com/zerolabnet/ssclash/releases/download/v3.2.0/luci-app-ssclash_3.2.0-r1_all.ipk -o /tmp/luci-app-ssclash_3.2.0-r1_all.ipk
-apk --allow-untrusted add /tmp/ /tmp/luci-app-ssclash_3.2.0-r1_all.ipk
+curl -L https://github.com/samara1531/SSClash/releases/download/v1.0.2/luci-app-ssclash-1.1.0-r1.apk -o /tmp/luci-app-ssclash-1.1.0-r1.apk
+apk --allow-untrusted add /tmp/ /tmp/luci-app-ssclash-1.1.0-r1.apk
 rm /tmp/*.apk
 ```
 
