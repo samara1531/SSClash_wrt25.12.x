@@ -2,7 +2,7 @@
  <img src=".github/assets/images/logos/SSClash.png" width="200">
 </p>
 
-<h3 align="center">Пошаговая инструкция по установке и настройке SSClash на вашем роутере с OpenWrt</h3>
+<h3 align="center"> Инструкция по установке и настройке SSClash на вашем роутере с OpenWrt версии >= 25.12.x</h3>
 
 # Руководство по установке
 
