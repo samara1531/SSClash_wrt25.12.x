@@ -47,12 +47,10 @@ jobs:
           make defconfig
           make package/${PACKAGE_NAME}/compile V=s
 
-          echo "Target APK:"
-          find "$SDK_HOME/bin/packages" -type f -name "${PACKAGE_NAME}_*.apk"
+          echo "APK files:"
+          find "$SDK_HOME/bin/packages" -type f -name "*.apk"
 
-          find "$SDK_HOME/bin/packages" -type f \
-            -name "${PACKAGE_NAME}_*.apk" \
-            -exec cp -v {} "${{ github.workspace }}" \;
+          cp -v "$SDK_HOME"/bin/packages/*/*/*.apk "${{ github.workspace }}"
       - name: Generate Release Notes
         run: |
           echo "## Release ${{ github.event.inputs.release-tag }}" > release_notes.md
