@@ -6,12 +6,12 @@
 
 # Руководство по установке
 
-## Шаг 2: Установка необходимых пакетов
+## Шаг 1-2: Установка необходимых пакетов
 
 Установите необходимый модуль ядра для nftables.
 
 ```bash
-apk add kmod-nft-tproxy
+apk add kmod-nft-tproxy curl gunzip
 ```
 
 ## Шаг 3: Загрузка и установка пакета `luci-app-ssclash`
@@ -20,8 +20,8 @@ apk add kmod-nft-tproxy
 
 ```bash
 curl -L https://github.com/zerolabnet/ssclash/releases/download/v3.2.0/luci-app-ssclash_3.2.0-r1_all.ipk -o /tmp/luci-app-ssclash_3.2.0-r1_all.ipk
-opkg install /tmp/luci-app-ssclash_3.2.0-r1_all.ipk
-rm /tmp/*.ipk
+apk --allow-untrusted add /tmp/ /tmp/luci-app-ssclash_3.2.0-r1_all.ipk
+rm /tmp/*.apk
 ```
 
 
