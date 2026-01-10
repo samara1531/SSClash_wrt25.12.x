@@ -64,11 +64,12 @@ wget --no-check-certificate -O /tmp/clash.gz https://github.com/MetaCubeX/mihomo
 
 Нужна другая архитектура? Посетите [страницу релизов MetaCubeX](https://github.com/MetaCubeX/mihomo/releases) и выберите ту, которая соответствует вашему устройству.
 
-Распакуйте и сделайте исполняемым:
+Распакуйте, перенесите и сделайте исполняемым:
 
 ```bash
-gunzip clash.gz
-chmod +x clash
+busybox gunzip /tmp/clash.gz
+cp /tmp/clash /opt/clash/bin/
+chmod +x /opt/clash/bin/clash
 ```
 
 
