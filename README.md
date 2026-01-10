@@ -47,19 +47,19 @@ cd /opt/clash/bin
 Для архитектуры **amd64**:
 
 ```bash
-curl -L https://github.com/MetaCubeX/mihomo/releases/download/v1.19.18/mihomo-linux-amd64-compatible-v1.19.14.gz -o clash.gz
+wget --no-check-certificate -O /tmp/clash.gz https://github.com/MetaCubeX/mihomo/releases/download/v1.19.18/mihomo-linux-amd64-compatible-v1.19.18.gz
 ```
 
 Для архитектуры **arm64**:
 
 ```bash
-curl -L https://github.com/MetaCubeX/mihomo/releases/download/v1.19.18/mihomo-linux-arm64-v1.19.14.gz -o clash.gz
+wget --no-check-certificate -O /tmp/clash.gz https://github.com/MetaCubeX/mihomo/releases/download/v1.19.18/mihomo-linux-arm64-v1.19.18.gz
 ```
 
 Для архитектуры **mipsel\_24kc**:
 
 ```bash
-curl -L https://github.com/MetaCubeX/mihomo/releases/download/v1.19.18/mihomo-linux-mipsle-softfloat-v1.19.14.gz -o clash.gz
+wget --no-check-certificate -O /tmp/clash.gz https://github.com/MetaCubeX/mihomo/releases/download/v1.19.18/mihomo-linux-mipsle-softfloat-v1.19.18.gz
 ```
 
 Нужна другая архитектура? Посетите [страницу релизов MetaCubeX](https://github.com/MetaCubeX/mihomo/releases) и выберите ту, которая соответствует вашему устройству.
